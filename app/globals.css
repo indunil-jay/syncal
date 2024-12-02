@@ -73,7 +73,26 @@ body {
   * {
     @apply border-border;
   }
-  body {
-    @apply bg-background text-foreground;
+
+  html {
+    @apply h-full;
   }
+  body {
+    @apply bg-background text-foreground h-full;
+  }
+}
+
+/* For WebKit Browsers (Chrome, Safari, etc.) */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* For Firefox */
+.hide-scrollbar {
+  scrollbar-width: none;
+}
+
+/* Ensures smooth scrolling without scrollbar interference */
+.hide-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
 }

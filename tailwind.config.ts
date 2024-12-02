@@ -59,5 +59,19 @@ export default {
     },
   },
   // eslint-disable-next-line @typescript-eslint/no-require-imports
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+
+    function ({ addUtilities }) {
+      addUtilities({
+        ".hide-scrollbar": {
+          "scrollbar-width": "none" /* Firefox */,
+          "-ms-overflow-style": "none" /* IE and Edge */,
+        },
+        ".hide-scrollbar::-webkit-scrollbar": {
+          display: "none" /* Chrome, Safari */,
+        },
+      });
+    },
+  ],
 } satisfies Config;
