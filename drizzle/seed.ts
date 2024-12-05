@@ -1,8 +1,8 @@
 import { Table, getTableName, sql } from "drizzle-orm";
 import { connection, db, DB } from "@/drizzle";
 
-import * as schema from "@/drizzle/schemas";
-import * as seeds from "@/drizzle/seeds";
+// import * as schema from "@/drizzle/schemas";
+// import * as seeds from "@/drizzle/seeds";
 import envValidationSchema from "@/lib/env.validation-schema";
 
 if (!envValidationSchema.DB_SEEDING) {

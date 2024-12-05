@@ -12,7 +12,7 @@ import { SocialButton } from "./social-button";
 
 export const SignInCard = () => {
   return (
-    <Card className="w-full py-8 lg:px-20 rounded-none bg-white border-none shadow-none">
+    <Card className="w-full  py-8 lg:px-20 rounded-none bg-white border-none shadow-none">
       <CardHeader>
         <CardTitle>Welcom Back </CardTitle>
         <CardDescription>
