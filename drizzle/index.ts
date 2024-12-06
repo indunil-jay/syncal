@@ -3,7 +3,7 @@ import postgres from "postgres";
 import * as schema from "@/drizzle/schemas";
 import envValidationSchema from "@/lib/env.validation-schema";
 
-export const connection = postgres(envValidationSchema.SUPABASE_DATABASE_URL, {
+export const connection = postgres(envValidationSchema.DATABASE_URL, {
   max:
     envValidationSchema.DB_MIGRATING || envValidationSchema.DB_SEEDING
       ? 1

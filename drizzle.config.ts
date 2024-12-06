@@ -6,7 +6,7 @@ export default defineConfig({
   out: "./drizzle/migrations",
   dialect: "postgresql",
   dbCredentials: {
-    url: envValidationSchema.SUPABASE_DATABASE_URL,
+    url: envValidationSchema.DATABASE_URL,
   },
   //   verbose:true,
   strict: true,

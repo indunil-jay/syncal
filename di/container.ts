@@ -1,17 +1,20 @@
+import "server-only";
+
 import { Container } from "inversify";
 
 import { DI_RETURN_TYPES, DI_SYMBOLS } from "@/di/types";
+import { AuthenticationModule } from "@/di/modules/authenication.module";
 
 const ApplicationContainer = new Container({
   defaultScope: "Singleton",
 });
 
 export const initializeContainer = () => {
-  // ApplicationContainer.load(AuthenticationModule);
+  ApplicationContainer.load(AuthenticationModule);
 };
 
 export const destroyContainer = () => {
-  // ApplicationContainer.unload(AuthenticationModule);
+  ApplicationContainer.unload(AuthenticationModule);
 };
 
 if (process.env.NODE_ENV !== "test") {

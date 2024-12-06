@@ -1,4 +1,8 @@
 "use client";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
 import { Button } from "@/app/_components/ui/button";
 import {
   Form,
@@ -9,13 +13,31 @@ import {
   FormMessage,
 } from "@/app/_components/ui/form";
 import { Input } from "@/app/_components/ui/input";
-import { useForm } from "react-hook-form";
+import { useLogin } from "../hooks/use-login";
+
+export const loginFormSchema = z.object({
+  email: z.string().email({ message: "Please enter a valid email." }),
+  password: z.string().min(1, { message: "Password field must not be empty." }),
+});
 
 export const SignInForm = () => {
-  const form = useForm();
+  const form = useForm<z.infer<typeof loginFormSchema>>({
+    resolver: zodResolver(loginFormSchema),
+    defaultValues: {
+      email: "indunilthilina990@gmail.com",
+      password: "Test1122@",
+    },
+  });
+
+  const { mutate, isPending } = useLogin();
+
+  const onSubmit = (values: z.infer<typeof loginFormSchema>) => {
+    console.log(values);
+    mutate(values);
+  };
   return (
     <Form {...form}>
-      <form className="space-y-4">
+      <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
         <FormField
           control={form.control}
           name="email"
@@ -23,7 +45,7 @@ export const SignInForm = () => {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="" {...field} />
+                <Input disabled={isPending} placeholder="" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -36,7 +58,12 @@ export const SignInForm = () => {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input placeholder="" {...field} type="password" />
+                <Input
+                  disabled={isPending}
+                  placeholder=""
+                  {...field}
+                  type="password"
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -49,7 +76,7 @@ export const SignInForm = () => {
           </span>
         </div>
 
-        <Button className="w-full" type="submit">
+        <Button className="w-full" type="submit" disabled={isPending}>
           Sign in
         </Button>
       </form>

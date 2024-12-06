@@ -21,6 +21,7 @@ async function main() {
   ]) {
     // await db.delete(table); // clear tables without truncating / resetting ids
     await resetTable(db, table);
+    console.log("Seeding done! ✅");
   }
 
   //seeding data sequentially data
@@ -33,9 +34,8 @@ async function main() {
 main()
   .catch((e) => {
     console.log(e);
-    process.exit(1);
+    // process.exit(1);
   })
   .finally(async () => {
-    console.log("Seeding done! ✅");
-    process.exit(0);
+    // process.exit(0);
   });

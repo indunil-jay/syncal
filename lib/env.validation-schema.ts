@@ -1,6 +1,12 @@
-import { config } from "dotenv";
-import { expand } from "dotenv-expand";
 import { z, ZodError } from "zod";
+import loadEnv from "./load-env";
+
+//fix for edge-runtime issue, prevent loading node-API things
+const isEdgeRuntime = process.env.NEXT_RUNTIME === "edge";
+
+if (!isEdgeRuntime) {
+  loadEnv();
+}
 
 const stringBoolean = z.coerce
   .string()
@@ -10,18 +16,18 @@ const stringBoolean = z.coerce
   .default("false");
 
 const envSchema = z.object({
-  SUPABASE_DATABASE_PASSWORD: z.string().min(1),
-  SUPABASE_DATABASE_URL: z.string().min(1),
+  DATABASE_URL: z.string().min(1),
   DB_MIGRATING: stringBoolean,
   DB_SEEDING: stringBoolean,
+  NEXTAUTH_URL: z.string().min(1),
 });
 
 export type EnvSchema = z.infer<typeof envSchema>;
 
-expand(config());
-
 try {
-  envSchema.parse(process.env);
+  if (!isEdgeRuntime) {
+    envSchema.parse(process.env);
+  }
 } catch (error) {
   if (error instanceof ZodError) {
     let message = "Missing required values in .env:\n";
