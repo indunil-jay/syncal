@@ -33,11 +33,13 @@ export const SignInCard = () => {
             btnText="Sign in with Google"
             imgPath="/google.svg"
             imgAlt="googl-svg"
+            provider="google"
           />
           <SocialButton
             btnText="Sign in with Github"
             imgPath="/github.svg"
             imgAlt="github-svg"
+            provider="github"
           />
         </div>
         <div className="flex items-center justify-center">
